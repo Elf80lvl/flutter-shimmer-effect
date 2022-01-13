@@ -166,8 +166,8 @@ class ShimmerWidget extends StatelessWidget {
           shape: shapeBorder,
         ),
       ),
-      baseColor: Colors.grey[400]!,
-      highlightColor: Colors.grey[300]!,
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[200]!,
       //how long it takes for the animation to execute (optional)
       //period: Duration(seconds: 3),
     );
