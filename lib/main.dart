@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'food.dart';
+import 'shimmerWidget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,29 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  List<Food> allFoods = [
-    Food(
-        title: 'Apple',
-        urlImage:
-            'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/red-fresh-apple-isolated-on-white-background-royalty-free-image-1627314996.jpg?crop=1.00xw:0.923xh;0,0.0486xh&resize=768:*',
-        description: 'An apple is a edible blablabla'),
-    Food(
-        title: 'Banana',
-        urlImage:
-            'https://kot.sh/sites/default/files/styles/large/public/articles-image/25-prost-banana-preview.jpg?itok=fwYNew5Q',
-        description: 'Banana ss a banananna'),
-    Food(
-        title: 'Banana',
-        urlImage:
-            'https://kot.sh/sites/default/files/styles/large/public/articles-image/25-prost-banana-preview.jpg?itok=fwYNew5Q',
-        description: 'Banana ss a banananna'),
-    Food(
-        title: 'Banana',
-        urlImage:
-            'https://kot.sh/sites/default/files/styles/large/public/articles-image/25-prost-banana-preview.jpg?itok=fwYNew5Q',
-        description: 'Banana ss a banananna'),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView.builder(
-        itemCount: isLoading ? 5 : foods.length,
+        itemCount: isLoading ? 4 : foods.length,
         itemBuilder: (context, index) {
           if (isLoading) {
             return buildFoodShimmer();
@@ -116,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
       subtitle: Text(
         food.description,
         style: TextStyle(fontSize: 14),
+        maxLines: 1,
       ),
     );
   }
@@ -135,54 +115,4 @@ class _MyHomePageState extends State<MyHomePage> {
       subtitle: ShimmerWidget.rectangular(height: 14),
     );
   }
-}
-
-//*the actual widget that provides the shimmer effect
-class ShimmerWidget extends StatelessWidget {
-  final double width;
-  final double height;
-  final ShapeBorder shapeBorder;
-
-  const ShimmerWidget.rectangular({
-    this.width = double.infinity,
-    required this.height,
-  }) : this.shapeBorder = const RoundedRectangleBorder();
-
-  const ShimmerWidget.circular({
-    required this.width,
-    required this.height,
-    this.shapeBorder = const CircleBorder(),
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    //the widget for shimmer effect that comes from the package https://pub.dev/packages/shimmer/install
-    return Shimmer.fromColors(
-      child: Container(
-        width: width,
-        height: height,
-        decoration: ShapeDecoration(
-          color: Colors.grey,
-          shape: shapeBorder,
-        ),
-      ),
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[200]!,
-      //how long it takes for the animation to execute (optional)
-      //period: Duration(seconds: 3),
-    );
-  }
-}
-
-//food class to create list of foods
-class Food {
-  final String urlImage;
-  final String title;
-  final String description;
-
-  const Food({
-    required this.urlImage,
-    required this.title,
-    required this.description,
-  });
 }
